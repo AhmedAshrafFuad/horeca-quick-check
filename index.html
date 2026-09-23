@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Horeca Smart — quick check</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,520;9..144,640&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f4f0e8;
+      --card: #fffdf9;
+      --ink: #1c1915;
+      --muted: #5c564e;
+      --line: #e3dcd1;
+      --navy: #14356f;
+      --navy-soft: #e7eef8;
+      --now: #8d341f;
+      --now-bg: #f8ece6;
+      --next: #1b6842;
+      --next-bg: #e6f3eb;
+      --bug: #8d341f;
+      --shadow: 0 16px 40px rgba(40, 32, 22, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(1200px 500px at 10% -10%, #efe6d4 0%, transparent 55%),
+        var(--paper);
+      color: var(--ink);
+      font-family: Outfit, "Avenir Next", "Segoe UI", sans-serif;
+      font-size: 17px;
+      line-height: 1.55;
+    }
+
+    a { color: inherit; }
+    img, video { max-width: 100%; }
+
+    .wrap {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    header.hero {
+      padding: 56px 0 28px;
+    }
+    .eyebrow {
+      margin: 0 0 14px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--navy);
+    }
+    h1 {
+      margin: 0;
+      max-width: 14ch;
+      font-family: Fraunces, "Iowan Old Style", Palatino, serif;
+      font-weight: 640;
+      font-size: clamp(44px, 6vw, 72px);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+    }
+    .lede {
+      max-width: 62ch;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 18.5px;
+    }
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 28px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .stats li {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .stats li.scope {
+      background: var(--navy-soft);
+      border-color: #c5d0e4;
+      color: var(--navy);
+    }
+    .stats strong { font-weight: 600; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      gap: 36px;
+      align-items: start;
+      padding-bottom: 80px;
+    }
+
+    nav {
+      position: sticky;
+      top: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 10px;
+      background: rgba(255, 253, 249, 0.8);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      backdrop-filter: blur(8px);
+    }
+    nav a {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 8px;
+      align-items: baseline;
+      text-decoration: none;
+      border-radius: 10px;
+      padding: 7px 8px;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.3;
+    }
+    nav a span { font-variant-numeric: tabular-nums; color: var(--navy); font-weight: 600; }
+    nav a.on, nav a:hover { background: var(--navy-soft); color: var(--ink); }
+
+    .index {
+      display: grid;
+      gap: 8px;
+      margin: 0 0 28px;
+    }
+    .index a {
+      display: grid;
+      grid-template-columns: 42px 1fr auto auto;
+      gap: 12px;
+      align-items: center;
+      text-decoration: none;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 14px;
+    }
+    .index a:hover { border-color: #c9d3e6; }
+    .index .n {
+      font-family: Fraunces, serif;
+      font-size: 20px;
+      color: var(--navy);
+    }
+    .index .where { color: var(--muted); font-size: 13px; }
+    .tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      padding: 4px 8px;
+    }
+    .tag.ux { background: var(--navy-soft); color: var(--navy); }
+    .tag.layout { background: #f3ead7; color: #6d5014; }
+    .tag.bug { background: var(--now-bg); color: var(--bug); }
+
+    article {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 28px;
+      margin: 0 0 18px;
+      box-shadow: var(--shadow);
+      scroll-margin-top: 72px;
+    }
+    article header h2 {
+      margin: 6px 0 0;
+      font-family: Fraunces, "Iowan Old Style", Palatino, serif;
+      font-size: clamp(28px, 3vw, 36px);
+      font-weight: 640;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+    }
+    .kicker {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .kicker .tag { margin-left: 8px; letter-spacing: 0.08em; }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 28px;
+      align-items: start;
+      margin-top: 22px;
+    }
+    .split.stack { grid-template-columns: 1fr; }
+    .films {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+      margin-top: 8px;
+    }
+    .films figure {
+      flex: 0 0 280px;
+      max-width: 100%;
+      min-width: 0;
+    }
+    h2 { overflow-wrap: break-word; }
+
+    .pair { display: grid; gap: 12px; }
+    .box { border-radius: 16px; padding: 16px 16px 14px; }
+    .box h3 {
+      margin: 0 0 6px;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .box p, .box li { margin: 0; }
+    .box ul { margin: 8px 0 0; padding-left: 18px; }
+    .box li + li { margin-top: 6px; }
+    .now { background: var(--now-bg); }
+    .now h3 { color: var(--now); }
+    .next { background: var(--next-bg); }
+    .next h3 { color: var(--next); }
+    .note {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 14.5px;
+    }
+
+    figure { margin: 0; }
+    figcaption {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    .device {
+      width: min(280px, 100%);
+      background: #161616;
+      border-radius: 28px;
+      padding: 8px;
+      box-shadow: 0 12px 30px rgba(28, 25, 21, 0.16);
+    }
+    .films .device { width: 100%; }
+    .device img, .device video {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 22px;
+      background: white;
+    }
+
+    .sketch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .chip {
+      border: 1px dashed var(--line);
+      border-radius: 14px;
+      padding: 12px;
+      background: #faf8f4;
+    }
+    .chip b {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .controls { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .controls i {
+      display: inline-grid;
+      place-items: center;
+      min-width: 32px;
+      height: 32px;
+      padding: 0 8px;
+      border-radius: 8px;
+      background: var(--navy);
+      color: white;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .controls i.ghost {
+      background: white;
+      color: var(--navy);
+      border: 1.5px solid #c5d0e4;
+    }
+    .controls em { font-style: normal; font-size: 13px; color: var(--muted); }
+
+    .trio {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .trio .device { width: 180px; border-radius: 22px; padding: 6px; }
+    .trio .device img { border-radius: 16px; }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 22px 0 40px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 860px) {
+      .layout { grid-template-columns: 1fr; }
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        flex-direction: row;
+        overflow-x: auto;
+        border-radius: 0;
+        margin: 0 -20px;
+        padding: 8px 12px;
+      }
+      nav a { min-width: max-content; grid-template-columns: auto auto; }
+      .index a { grid-template-columns: 36px 1fr; }
+      .index .where, .index .tag { display: none; }
+      .split, .sketch { grid-template-columns: 1fr; }
+      .trio { overflow-x: auto; }
+      article { padding: 20px; }
+    }
+
+    @media print {
+      body { background: white; }
+      nav, .stats { display: none; }
+      .layout { display: block; }
+      article { break-inside: avoid; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <p class="eyebrow">Ahmed Ashraf · Senior iOS Developer at Panda Retail Company – Savola Group</p>
+      <h1>Nine notes from a short session</h1>
+      <p class="lede">A quick check of points that came up on Home, the product list, product details, and Previous orders. I found all of this as a guest. I did not log in. It covers these nine only. Each note says what happens now and what to change. The round mark in the clips is the iPhone recording indicator.</p>
+      <ul class="stats">
+        <li class="scope"><strong>Guest only</strong> · not logged in</li>
+        <li><strong>3</strong> interaction</li>
+        <li><strong>3</strong> layout</li>
+        <li><strong>3</strong> behavior</li>
+      </ul>
+    </header>
+
+    <div class="layout">
+      <nav aria-label="Issues">
+        <a href="#i1"><span>01</span> One tap to add</a>
+        <a href="#i2"><span>02</span> Price spacing</a>
+        <a href="#i3"><span>03</span> Hidden quantity</a>
+        <a href="#i4"><span>04</span> Login title</a>
+        <a href="#i5"><span>05</span> Search on every screen</a>
+        <a href="#i6"><span>06</span> Trust block padding</a>
+        <a href="#i7"><span>07</span> Broken back gesture</a>
+        <a href="#i8"><span>08</span> Image cache</a>
+        <a href="#i9"><span>09</span> Offline state</a>
+      </nav>
+
+      <main>
+        <div class="index">
+          <a href="#i1"><span class="n">01</span><span>Add the first unit in one tap</span><span class="where">Product list</span><span class="tag ux">UX</span></a>
+          <a href="#i2"><span class="n">02</span><span>Give the price room above Add to Cart</span><span class="where">Product details</span><span class="tag layout">Layout</span></a>
+          <a href="#i3"><span class="n">03</span><span>Show the quantity on the product card</span><span class="where">Product list</span><span class="tag layout">Layout</span></a>
+          <a href="#i4"><span class="n">04</span><span>A guest should see login, not a list title</span><span class="where">Previous orders</span><span class="tag ux">UX</span></a>
+          <a href="#i5"><span class="n">05</span><span>Search does not belong on every screen</span><span class="where">All screens</span><span class="tag ux">UX</span></a>
+          <a href="#i6"><span class="n">06</span><span>Pad the shipping and support block</span><span class="where">Product details</span><span class="tag layout">Layout</span></a>
+          <a href="#i7"><span class="n">07</span><span>Back from the product list breaks the screen</span><span class="where">Navigation</span><span class="tag bug">Bug</span></a>
+          <a href="#i8"><span class="n">08</span><span>Cache images with the products</span><span class="where">Home and lists</span><span class="tag bug">Bug</span></a>
+          <a href="#i9"><span class="n">09</span><span>Say when the phone is offline</span><span class="where">Launch</span><span class="tag bug">Bug</span></a>
+        </div>
+
+        <article id="i1">
+          <header>
+            <p class="kicker">Product list <span class="tag ux">UX</span></p>
+            <h2>Add the first unit in one tap</h2>
+          </header>
+          <div class="split">
+            <div>
+              <div class="pair">
+                <div class="box now">
+                  <h3>What happens now</h3>
+                  <p>Before a product is in the cart, the card already shows minus, plus, and a cart button. Adding the first unit takes two taps: plus, then the cart icon.</p>
+                </div>
+                <div class="box next">
+                  <h3>What to change</h3>
+                  <p>One tap on plus adds the product. Hide minus until the quantity is at least 1. After that, minus and plus only change the amount. A second cart tap is not required.</p>
+                </div>
+              </div>
+              <div class="sketch" aria-hidden="true">
+                <div class="chip">
+                  <b>Today</b>
+                  <div class="controls"><i class="ghost">−</i><i>+</i><i>Cart</i><em>then tap Cart</em></div>
+                </div>
+                <div class="chip">
+                  <b>After the fix</b>
+                  <div class="controls"><i>+</i><em>first tap adds 1</em></div>
+                </div>
+              </div>
+            </div>
+            <figure>
+              <div class="device">
+                <img src="media/product-list.png" alt="Product list cards with minus, plus, and a cart button, and no quantity between the buttons.">
+              </div>
+              <figcaption>The outlined card is the current control: minus and plus before the item is in the cart, then a separate cart button.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article id="i2">
+          <header>
+            <p class="kicker">Product details <span class="tag layout">Layout</span></p>
+            <h2>Give the price room above Add to Cart</h2>
+          </header>
+          <div class="split">
+            <div class="pair">
+              <div class="box now">
+                <h3>What happens now</h3>
+                <p>The total and the crossed-out price sit on the quantity row. In this screen they are also tucked under the sticky search bar, so “TOTAL: EGP 990.00” and “WAS: EGP 975” are cut off.</p>
+              </div>
+              <div class="box next">
+                <h3>What to change</h3>
+                <p>Keep a clear gap between the price block and the buttons. Keep the price fully visible below the header, so scrolling never slides it under the search field.</p>
+              </div>
+            </div>
+            <figure>
+              <div class="device">
+                <img src="media/product-details.png" alt="Product details with the total price clipped under the search bar, directly above Add to Cart.">
+              </div>
+              <figcaption>The price is clipped by the header and has no gap before minus, plus, and Add to Cart.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article id="i3">
+          <header>
+            <p class="kicker">Product list <span class="tag layout">Layout</span></p>
+            <h2>Show the quantity on the product card</h2>
+          </header>
+          <div class="split">
+            <div class="pair">
+              <div class="box now">
+                <h3>What happens now</h3>
+                <p>The number between minus and plus never appears. The cart icon and “Total: EGP 0.00” take the whole row, and the total itself is clipped. On Home, the same control does show 0, so the quantity exists. The list card is just too narrow.</p>
+              </div>
+              <div class="box next">
+                <h3>What to change</h3>
+                <p>Give the stepper room for minus, the number, and plus. Move the line total onto its own line when the card is narrow.</p>
+              </div>
+            </div>
+            <figure>
+              <div class="device">
+                <img src="media/product-list.png" alt="Product cards where the quantity is missing and the line total is squeezed against the cart icon.">
+              </div>
+              <figcaption>No digit between minus and plus. The green total collides with the cart button.</figcaption>
+            </figure>
+          </div>
+          <p class="note">Same row as issue 01. After the first tap adds the item, the card still needs room to show the quantity.</p>
+        </article>
+
+        <article id="i4">
+          <header>
+            <p class="kicker">Previous orders <span class="tag ux">UX</span></p>
+            <h2>A guest should see login, not a list title</h2>
+          </header>
+          <div class="split">
+            <div class="pair">
+              <div class="box now">
+                <h3>What happens now</h3>
+                <p>Orders opens a screen titled “Previous orders”, with a back arrow. The body is empty except “Please Login First” and a Login button.</p>
+              </div>
+              <div class="box next">
+                <h3>What to change</h3>
+                <p>If the shopper is not logged in, show the login prompt on its own. Show the Previous orders title only when there is an order list to open.</p>
+              </div>
+            </div>
+            <figure>
+              <div class="device">
+                <img src="media/previous-orders.png" alt="Previous orders title above a login prompt that says Please Login First.">
+              </div>
+              <figcaption>The title promises a list. The screen can only log the shopper in.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article id="i5">
+          <header>
+            <p class="kicker">All screens <span class="tag ux">UX</span></p>
+            <h2>Search does not belong on every screen</h2>
+          </header>
+          <div class="split stack">
+            <div class="pair">
+              <div class="box now">
+                <h3>What happens now</h3>
+                <p>Logo, search, and the header cart are fixed on Home, lists, product details, and the login wall. On product details the search bar covers the price. On Previous orders, search is not the task.</p>
+              </div>
+              <div class="box next">
+                <h3>What to change</h3>
+                <p>Keep search on Home. From the other screens, open it from a Search tab in the bottom bar, or from a floating button. Those screens get a normal title bar instead.</p>
+              </div>
+            </div>
+            <figure>
+              <div class="trio">
+                <div class="device"><img src="media/product-list.png" alt="Search bar on the product list."></div>
+                <div class="device"><img src="media/product-details.png" alt="Search bar covering the price on product details."></div>
+                <div class="device"><img src="media/previous-orders.png" alt="Search bar above the login prompt."></div>
+              </div>
+              <figcaption>The same search header on the list, on product details, and on a screen that only asks the shopper to log in.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article id="i6">
+          <header>
+            <p class="kicker">Product details <span class="tag layout">Layout</span></p>
+            <h2>Pad the shipping and support block</h2>
+          </header>
+          <div class="split">
+            <div class="pair">
+              <div class="box now">
+                <h3>What happens now</h3>
+                <p>Trusted Shipping, Secure Payment, Call Us, and Email Support have no side padding. The shipping sentence is cut at “restaurant”, and “cafes and companies” drops onto the next line.</p>
+              </div>
+              <div class="box next">
+                <h3>What to change</h3>
+                <p>Use the same horizontal padding as the Add to Cart row. Let the full sentence wrap inside the row, with space between the icon and the text.</p>
+              </div>
+            </div>
+            <figure>
+              <div class="device">
+                <img src="media/product-details.png" alt="Trusted Shipping text running off the right edge of the product details screen.">
+              </div>
+              <figcaption>The trust rows run into the screen edge. The button row above them does not.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article id="i7">
+          <header>
+            <p class="kicker">Navigation <span class="tag bug">Bug</span></p>
+            <h2>Back from the product list breaks the screen</h2>
+          </header>
+          <div class="split stack">
+            <div class="pair">
+              <div class="box now">
+                <h3>What happens now</h3>
+                <ul>
+                  <li>Going into a product list and back does not return to one screen.</li>
+                  <li>The previous page stays up during the animation. For a moment there are two headers: two logos and two search fields, with product columns from more than one list side by side.</li>
+                  <li>Another back gesture flashes a half-drawn category screen. Only the Smart Offers card is there, its image is blank, and the product list is still visible underneath on the left.</li>
+                </ul>
+              </div>
+              <div class="box next">
+                <h3>What to change</h3>
+                <p>Back pops a single screen and shows the category the shopper came from. One header, one page, and nothing left underneath.</p>
+              </div>
+            </div>
+            <div class="films">
+              <figure>
+                <div class="device">
+                  <video controls playsinline preload="metadata" poster="media/navigation.jpg">
+                    <source src="media/navigation.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <figcaption>Clip 1. Back stacks two headers and several product columns on one screen.</figcaption>
+              </figure>
+              <figure>
+                <div class="device">
+                  <video controls playsinline preload="metadata" poster="media/navigation-return.jpg">
+                    <source src="media/navigation-return.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <figcaption>Clip 2. Back flashes a broken Smart Offers screen, then the list returns shifted.</figcaption>
+              </figure>
+            </div>
+          </div>
+        </article>
+
+        <article id="i8">
+          <header>
+            <p class="kicker">Home, categories, product list <span class="tag bug">Bug</span></p>
+            <h2>Cache images with the products</h2>
+          </header>
+          <div class="split">
+            <div class="pair">
+              <div class="box now">
+                <h3>What happens now</h3>
+                <p>Names and prices are already cached. Images are not. On launch the cards draw first and the photos pop in a moment later. Going back, photos fade to empty and load again. Offline, the text is still there and every photo is a blank box.</p>
+              </div>
+              <div class="box next">
+                <h3>What to change</h3>
+                <p>Store images on disk with the product cache, keyed by image URL. Show the stored photo immediately, including when the phone is offline. Do not download an image that is already saved.</p>
+              </div>
+            </div>
+            <figure>
+              <div class="device">
+                <video controls playsinline preload="metadata" poster="media/images.jpg">
+                  <source src="media/images.mp4" type="video/mp4">
+                </video>
+              </div>
+              <figcaption>Cold launch. Whipping cream cards show the name and price while the photo area is still empty.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <article id="i9">
+          <header>
+            <p class="kicker">Launch with no connection <span class="tag bug">Bug</span></p>
+            <h2>Say when the phone is offline</h2>
+          </header>
+          <div class="split">
+            <div class="pair">
+              <div class="box now">
+                <h3>What happens now</h3>
+                <p>With cellular data off, the app opens Home from the cache and looks like a normal session, except the photos are missing. There is no offline screen and no banner inside the app. The only message is the iPhone alert “Cellular Data is Turned Off”. Tapping Add to Cart then fails with an error, and nothing explains that the phone is offline.</p>
+              </div>
+              <div class="box next">
+                <h3>What to change</h3>
+                <ul>
+                  <li>As soon as the app knows there is no connection, say so on screen.</li>
+                  <li>Cached names and prices can stay browsable.</li>
+                  <li>If Add to Cart cannot finish, say that in the app: the item was not added because there is no connection.</li>
+                </ul>
+              </div>
+            </div>
+            <figure>
+              <div class="device">
+                <video controls playsinline preload="metadata" poster="media/offline.jpg">
+                  <source src="media/offline.mp4" type="video/mp4">
+                </video>
+              </div>
+              <figcaption>Offline launch. Category names are cached. The artwork is empty, and the app never says the phone is offline.</figcaption>
+            </figure>
+          </div>
+        </article>
+      </main>
+    </div>
+
+    <footer>
+      Open this folder and double-click <strong>index.html</strong>. To share it, drop the whole <strong>horeca-review</strong> folder onto Netlify Drop. The clips are already inside, so the page plays without YouTube.
+    </footer>
+  </div>
+  <script>
+    const links = document.querySelectorAll("nav a");
+    const articles = document.querySelectorAll("article");
+    const mark = () => {
+      let current = articles[0];
+      articles.forEach((article) => {
+        if (article.getBoundingClientRect().top < 140) current = article;
+      });
+      links.forEach((link) => {
+        link.classList.toggle("on", link.getAttribute("href") === "#" + current.id);
+      });
+    };
+    document.addEventListener("scroll", mark, { passive: true });
+    mark();
+  </script>
+</body>
+</html>
